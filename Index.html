@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Car Insurance Calculator</title>
+
+    <link rel="stylesheet" href="allpages.css" type="text/css">
+<script type="text/javascript">
+
+
+ var ageCost = 0;
+ var genderCost = 0;
+ var coverCost=0;
+ var fuelCost=0;
+ var carAgeCost =0;
+ var mileageCost = 0;
+ var claimCost =0;
+ var carCost = 0;
+ var securityCost = 0;
+ var carUseCost = 0;
+ var total = 0;
+
+
+
+function calcCarAge() {
+    var carAge = parseInt(document.insurance.carAge.value);
+    total -=carAgeCost;
+
+    if (carAge < 3){
+        carAgeCost =100;
+        total += carAgeCost;
+    }
+    else if (carAge >= 3 || carAge <=6 ){
+        carAgeCost =70;
+        total += carAgeCost;
+    }
+    else if (carAge > 6 || carAge <=10 ){
+        carAgeCost =50;
+        total += carAgeCost;
+    }
+    else if (carAge > 10){
+        carAgeCost =20;
+        total += carAgeCost;
+    }
+
+    document.total.cost.value = total.toFixed(2);
+}
+
+function yearMileage() {
+    var mileage = parseInt(document.insurance.mileage.value);
+    total -= mileageCost;
+
+    if (mileage < 15000){
+        mileageCost=30;
+        total +=mileageCost;
+    }
+    else if(mileage >= 15000 || mileage < 25000){
+        mileageCost=40;
+        total +=mileageCost;
+    }
+    else if(mileage >= 25000)
+    {
+        mileageCost=40;
+        total +=mileageCost;
+    }
+    document.total.cost.value = total.toFixed(2);
+}
+
+function calcAge() {
+    var age = parseInt(document.insurance.age.value);
+    total -= ageCost;
+
+
+    if (age <= 24 || age >= 65){
+
+        ageCost = 500;
+        total += ageCost;
+    }
+    else if (age >= 25 || age <= 30){
+
+        ageCost = 350;
+        total += ageCost;
+    }
+    else if (age >= 31 || age <= 64){
+        ageCost = 200;
+        total += ageCost;
+    }
+
+    document.total.cost.value = total.toFixed(2);
+}
+
+function calcGender() {
+    var gender = document.insurance.gender.value;
+    total -= genderCost;
+
+    if (gender == "Male"){
+        genderCost = 400;
+        total += genderCost;
+    }
+    else if (gender == "Female"){
+
+        genderCost = 250;
+        total += genderCost;
+
+    }
+    document.total.cost.value = total.toFixed(2);
+}
+
+function carUsed() {
+    var carUse = document.insurance.carUse.value;
+    total -= carUseCost;
+
+    if (carUse == "Social"){
+        carUseCost = 30;
+        total += carUseCost;
+    }
+    else if (carUse="Class"){
+
+        carUseCost = 50;
+        total += carUseCost;
+
+    }
+    document.total.cost.value = total.toFixed(2);
+}
+
+function calcSecurity() {
+    var security = document.insurance.security.value;
+    total -= securityCost;
+
+    if(security =="None"){
+        securityCost = 100;
+        total += securityCost;
+    }
+    else if(security == "Alarm"){
+        securityCost = 70;
+        total += securityCost;
+    }
+    else if(security == "Immobiliser"){
+        securityCost = 50;
+        total += securityCost;
+    }
+    else if(security == "Alarm&Immobiliser"){
+        securityCost = 30;
+        total += securityCost;
+    }
+    else if(security == "Tracking&Immobiliser"){
+        securityCost = 10;
+        total += securityCost;
+    }
+    document.total.cost.value = total.toFixed(2);
+}
+
+function calcCover() {
+    var typeCover = document.insurance.typeCover.value;
+    total -= coverCost;
+
+    if (typeCover == "Comprehensive"){
+        coverCost = 400;
+        total += coverCost;
+    }
+    else if(typeCover == "ThirdParty"){
+        coverCost = 200;
+        total +=coverCost;
+    }
+    document.total.cost.value = total.toFixed(2);
+}
+
+ var makeByModel = {
+     BMW: ["BMW 1", "BMW 2", "BMW 3"],
+     Volvo: ["Volvo 1", "Volvo 2", "Volvo 3"],
+     Audi: ["Audi 1", "Audi 2", "Audi 3"],
+     Nissan: ["Nissan 1", "Nissan 2", "Nissan 3"],
+     Toyota: ["Toyota 1", "Toyota 2", "Toyota 3"]
+ }
+ //https://stackoverflow.com/questions/30232146/dynamically-populating-drop-down-list-from-selection-of-another-drop-down-value//
+ function changecat(value) {
+     if (value.length == 0) document.getElementById("category").innerHTML = "<option></option>";
+     else {
+         var catOptions = "";
+         for (categoryId in makeByModel[value]) {
+             catOptions += "<option>" + makeByModel[value][categoryId] + "</option>";
+         }
+         document.getElementById("category").innerHTML = catOptions;
+     }
+ }
+
+
+ function calcFuel() {
+     var fuelType = document.insurance.fuelType.value;
+     total -= fuelCost;
+
+     if (fuelType == "Diesel"){
+         fuelCost = 50;
+         total += fuelCost;
+     }
+     else if (fuelType == "Petrol"){
+         fuelCost = 40;
+         total += fuelCost;
+     }
+     else if (fuelType == "Hybrid"){
+         fuelCost = 20;
+         total += fuelCost;
+     }
+
+     document.total.cost.value = total.toFixed(2);
+ }
+
+ function  calcClaim() {
+     var claimFee = document.insurance.claimFee.value;
+     total -= claimCost;
+
+     if (claimFee == 1){
+         claimCost = 100;
+         total += claimCost;
+     }
+     else if (claimFee ==2){
+         claimCost = 80;
+         total += claimCost;
+     }
+     else if (claimFee ==3){
+         claimCost = 60;
+         total += claimCost;
+     }
+     else if (claimFee ==4){
+         claimCost = 40;
+         total += claimCost;
+     }
+     else if (claimFee ==5){
+         claimCost = 20;
+         total += claimCost;
+     }
+
+     document.total.cost.value = total.toFixed(2);
+ }
+
+ function carVal() {
+     var carValu = parseFloat(document.insurance.carValue.value);
+     total -= carCost;
+
+     carCost = 0.1*carValu;
+
+     total +=carCost;
+
+     document.total.cost.value = total.toFixed(2);
+ }
+//Validation
+ function validInputs() {
+
+
+     if(document.getElementById("txtName").value == ""){
+         window.alert("Please enter a value for your Name")
+         document.getElementById("lblName").style.color = "#ff0000";
+         document.getElementById("txtName").focus();
+         document.getElementById("txtName").value ="";
+     }
+     else{
+         document.getElementById("lblName").style.color ="#d2d6ef";
+     }
+
+     if(isNaN(document.getElementById("txtAge").value) || document.getElementById("txtAge").value == ""){
+         window.alert("Please enter a valid value for your Age")
+         document.getElementById("lblAge").style.color = "#ff0000";
+         document.getElementById("txtAge").focus();
+         document.getElementById("txtAge").value ="";
+     }
+     else{
+         document.getElementById("lblAge").style.color ="#d2d6ef";
+     }
+
+     if(document.insurance.gender.value == ""){
+         window.alert("No Gender Selected")
+         document.getElementById("lblGender").style.color="#ff0000";
+     }
+     else {
+         document.getElementById("lblGender").style.color ="#d2d6ef";
+     }
+
+     if(isNaN(document.getElementById("txtTele").value) || document.getElementById("txtTele").value == ""){
+         window.alert("Please enter a valid value for your Telephone")
+         document.getElementById("lblTele").style.color = "#ff0000";
+         document.getElementById("txtTele").focus();
+         document.getElementById("txtTele").value ="";
+     }
+     else{
+         document.getElementById("lblTele").style.color ="#d2d6ef";
+     }
+
+     if(document.getElementById("txtDate").value == ""){
+         window.alert("Please select a Date")
+         document.getElementById("lblDate").style.color = "#ff0000";
+     }
+     else{
+         document.getElementById("lblDate").style.color ="#d2d6ef";
+     }
+
+     if(document.getElementById("txtCover").value == ""){
+         window.alert("Please select a Cover Type")
+         document.getElementById("lblCover").style.color = "#ff0000";
+     }
+     else{
+         document.getElementById("lblCover").style.color ="#d2d6ef";
+     }
+
+     if(document.getElementById("make").value == ""){
+         window.alert("Please select a Make")
+         document.getElementById("lblMake").style.color = "#ff0000";
+     }
+     else{
+         document.getElementById("lblMake").style.color ="#d2d6ef";
+     }
+
+     if(document.getElementById("category").value == ""){
+         window.alert("Please select a Model")
+         document.getElementById("lblModel").style.color = "#ff0000";
+     }
+     else{
+         document.getElementById("lblModel").style.color ="#d2d6ef";
+     }
+
+     if(document.getElementById("txtFuel").value == ""){
+         window.alert("Please select Fuel Type")
+         document.getElementById("lblFuel").style.color = "#ff0000";
+     }
+     else{
+         document.getElementById("lblFuel").style.color ="#d2d6ef";
+     }
+
+     if(isNaN(document.getElementById("txtCarAge").value) || document.getElementById("txtCarAge").value == ""){
+         window.alert("Please enter a valid Car Age")
+         document.getElementById("lblCarAge").style.color = "#ff0000";
+         document.getElementById("txtCarAge").focus();
+         document.getElementById("txtCarAge").value ="";
+     }
+     else{
+         document.getElementById("lblCarAge").style.color ="#d2d6ef";
+     }
+
+     if(document.getElementById("txtClaim").value == ""){
+         window.alert("Please select Claims Fee")
+         document.getElementById("lblClaim").style.color = "#ff0000";
+     }
+     else{
+         document.getElementById("lblClaim").style.color ="#d2d6ef";
+     }
+
+     if(isNaN(document.getElementById("txtMileage").value) || document.getElementById("txtMileage").value == ""){
+         window.alert("Please enter a valid Mileage")
+         document.getElementById("lblMileage").style.color = "#ff0000";
+         document.getElementById("txtMileage").focus();
+         document.getElementById("txtMileage").value ="";
+     }
+     else{
+         document.getElementById("lblMileage").style.color ="#d2d6ef";
+     }
+
+     if(document.insurance.security.value == ""){
+         window.alert("No Security Selected")
+         document.getElementById("lblSec").style.color="#ff0000";
+     }
+     else {
+         document.getElementById("lblSec").style.color ="#d2d6ef";
+     }
+
+     if(document.insurance.carUse.value == ""){
+         window.alert("No Car Used Selected")
+         document.getElementById("lblCarUse").style.color="#ff0000";
+     }
+     else {
+         document.getElementById("lblCarUse").style.color ="#d2d6ef";
+     }
+
+     if(isNaN(document.getElementById("txtCarValue").value) || document.getElementById("txtCarValue").value == ""){
+         window.alert("Please enter a valid Value")
+         document.getElementById("lblCarValue").style.color = "#ff0000";
+         document.getElementById("txCarValue").focus();
+         document.getElementById("txtCarValue").value ="";
+     }
+     else{
+         document.getElementById("lblCarValue").style.color ="#d2d6ef";
+     }
+
+     var name = document.getElementById('txtName').value;
+     var age = document.getElementById('txtAge').value;
+     var gender = document.insurance.gender.value;
+     var tele = document.getElementById('txtTele').value;
+     var date = document.getElementById('txtDate').value;
+     var cover = document.getElementById('txtCover').value;
+     var make = document.getElementById('make').value;
+     var model = document.getElementById('category').value;
+     var fuel = document.getElementById('txtFuel').value;
+     var carAge = document.getElementById('txtCarAge').value;
+     var claim = document.getElementById('txtClaim').value;
+     var mileage = document.getElementById('txtMileage').value;
+     var carValue = document.getElementById('txtCarValue').value;
+     var security =  document.insurance.security.value;
+     var carUse = document.insurance.carUse.value;
+
+     var total =  document.total.cost.value;
+
+
+
+     alert("-----Summary Details-----"+ "\nName : " + name + "\nAge: " + age + "\nGender: " + gender + "\nTelephone: " + tele + "\nDate: " + date +
+           "\nCover Type: " + cover + "\nMake: " + make + "\nModel: " + model + "\nFuel Type: " + fuel +
+           "\nCar Age: " + age + "\nClaim Fee: " + claim + " year/s" + "\nMileage: " + mileage + "\nCar Value " + carValue +
+           "\nSecurity: " + security + "\nCar Use: " + carUse + "\nTotal Quote: " + total);
+
+ }
+
+
+
+
+
+</script>
+</head>
+<body style="font: 14px tahoma; color:#d2d6ef">
+
+<header><h1>Car Insurance Calculator</h1></header><br>
+<div id="form">
+ <form action="" method="" name="insurance">
+ <table>
+     <tr>
+         <td id="lblName">Name:</td>
+         <td><input type="text" id="txtName" name="name" placeholder=" Enter Your Name"  ></td>
+     </tr>
+
+     <tr>
+         <td id="lblAge">Age:</td>
+         <td><input type="text" id="txtAge" name="age" placeholder=" Enter Your Age" onchange="calcAge()"></td>
+     </tr>
+
+     <tr>
+         <td id="lblGender">Gender:</td>
+         <td> <input type="radio" name="gender" value="Male" onclick="calcGender()" > Male
+             <input type="radio" name="gender" value="Female" onclick="calcGender()"> Female
+         </td>
+     </tr>
+
+     <tr>
+         <td id="lblTele">Telephone:</td>
+         <td><input type="text" id="txtTele" placeholder=" Enter Your Telephone"name="telephone"></td>
+     </tr>
+
+     <tr>
+         <td id="lblDate"><div class="tooltip">Policy Start Date *:
+             <span class="tooltiptext">The policy start date you enter will be used as the starting point for your quote. If you choose to purchase this quote, you will have an opportunity to change the start date
+         </span></div></td>
+         <td> <input type="date" id="txtDate" name="sDate" ></td>
+     </tr>
+
+     <tr>
+         <td id="lblCover"><div class="tooltip">Type of Cover *:
+             <span class="tooltiptext">Comprehensive Cover - you will receive compensation for the damage to your own vehicle even if you’re at fault for the accident.<br><br>
+                 Third Party Fire & Theft insurance - provides the same level of cover as Third Party but with added cover if your car is stolen or damaged by fire.
+             </span></div>
+         </td>
+
+         <td><select name="typeCover" id="txtCover" onchange="calcCover()">
+             <option value="" disabled selected>-Select Cover-</option>
+             <option value="Comprehensive" >Fully Comprehensive</option>
+             <option value="ThirdParty" >Third Party Fire and theft</option>
+             </select>
+         </td>
+     </tr>
+
+
+     <tr><td id="lblMake" >Make:</td>
+         <td><select name="make" id="make" onChange="changecat(this.value);">
+             <option value="" disabled selected>Select</option>
+             <option value="BMW">BMW</option>
+             <option value="Volvo">Volvo</option>
+             <option value="Audi">Audi</option>
+             <option value="Nissan">Nissan</option>
+             <option value="Toyota">Toyota</option>
+         </select>
+
+         </td>
+     </tr>
+
+     <tr><td id="lblModel">Model:</td>
+         <td><select name="category" id="category">
+             <option value="" disabled selected>Select</option>
+         </select>
+
+         </td>
+     </tr>
+
+     <tr>
+
+         <td id="lblFuel" >Fuel Type:</td>
+         <td><select name="fuelType" id="txtFuel" onchange="calcFuel()">
+             <option value="" disabled selected>-Select Fuel Type-</option>
+             <option value="Diesel">Diesel</option>
+             <option value="Petrol">Petrol</option>
+             <option value="Hybrid">Hybrid</option>
+             </select>
+         </td>
+     </tr>
+
+     <tr>
+         <td id="lblCarAge">Car Age:</td>
+         <td><input type="text" name="carAge" id="txtCarAge" placeholder=" Enter Cars Age" onchange="calcCarAge()" ></td>
+     </tr>
+
+     <tr>
+         <td id="lblClaim"><div class="tooltip">Claims fee for *:
+             <span class="tooltiptext">An insurance claim is when you have a loss or sustain damage that is caused by a peril insured by your insurance policy. Your insurance policy provides coverage and compensation to your for covered losses or the damages you sustain by way of you making a claim.
+         </span></div>
+         </td>
+         <td><select name="claimFee" id="txtClaim" onchange="calcClaim()">
+             <option value="" disabled selected>-Select your option-</option>
+             <option value="1">1 year</option>
+             <option value="2">2 years</option>
+             <option value="3">3 years</option>
+             <option value="4">4 years</option>
+             <option value="5">5+ years</option>
+         </select>
+         </td>
+     </tr>
+
+     <tr>
+         <td id="lblMileage">Mileage per year:</td>
+         <td><input type="text" id="txtMileage" name="mileage" placeholder=" Enter Mileage per Year" onchange="yearMileage()"></td>
+     </tr>
+
+     <tr>
+         <td id="lblCarValue">Value of Car:</td>
+         <td><input type="text" id="txtCarValue" name="carValue"placeholder=" Enter Value of Car" onchange="carVal()" ></td>
+     </tr>
+
+     <tr>
+         <td id="lblSec">Security:</td>
+         <td><input type="radio" name="security" value="None" onclick="calcSecurity()"> None<br>
+             <input type="radio" name="security" value="Alarm" onclick="calcSecurity()"> Alarm<br>
+             <input type="radio" name="security" value="Immobiliser" onclick="calcSecurity()"> Immobiliser <br>
+             <input type="radio" name="security" value="Alarm&Immobiliser" onclick="calcSecurity()"> Alarm & Immobiliser<br>
+             <input type="radio" name="security" value="Tracking&Immobiliser" onclick="calcSecurity()"> Tracking device alarm & Immobiliser
+
+         </td>
+     </tr>
+
+     <tr>
+         <td id="lblCarUse"><div class="tooltip">What is the car<br>
+         being used for *:<span class="tooltiptext">Social Domestic & Pleasure -Social, domestic & pleasure use allows you to drive your car privately, for your own personal use.<br>
+                 <br> Class 1 - allows you or your spouse to use your car for; Social, domestic & pleasure purposes.
+         </span></div>
+
+         </td>
+         <td><input type="radio" id="txtCarUse" name="carUse" value="Social" onclick="carUsed()"> Social Domestic & Pleasure
+             <input type="radio" id="txtCarUse" name="carUse" value="Class" onclick="carUsed()"> Class 1 Use
+         </td>
+     </tr>
+
+     <tr><td></td>
+         <td><button type="button" id="button" onclick="validInputs()" >Confirm</button>
+
+     </td></tr>
+
+
+ </table>
+ </form>
+
+<form action="" name="total">
+
+       <p>Total:
+         <input type="text" name="cost" size="5"
+                    style="border-style: none; border-color: inherit; color:#d2d6ef;
+        border-width: medium; background-color: Transparent" text="0" /></p>
+
+
+
+</form>
+
+
+</div>
+
+
+<div id="time">Time left:  <span id="timer"></span></div>
+
+<script type="text/javascript">
+
+    //https://codepen.io/ishanbakshi/pen/pgzNMv//
+
+    //timer doesnt work if I dont put it inside the body tag//
+
+    document.getElementById('timer').innerHTML =
+        04 + ":" + 00;
+    startTimer();
+    function startTimer() {
+        var presentTime = document.getElementById('timer').innerHTML;
+        var timeArray = presentTime.split(/[:]+/);
+        var m = timeArray[0];
+        var s = checkSecond((timeArray[1] - 1));
+        if(s==59){m=m-1}
+        if(m<0){
+
+            location.href="Timeout.html";
+        }
+
+        document.getElementById('timer').innerHTML =
+            m + ":" + s;
+        setTimeout(startTimer, 1000);
+    }
+    function checkSecond(sec) {
+        if (sec < 10 && sec >= 0) {sec = "0" + sec}; // add zero in front of numbers < 10
+        if (sec < 0) {sec = "59"};
+        return sec;
+    }
+</script>
+
+
+
+
+</body>
+</html>
